@@ -1,2 +1,8 @@
 <h1>hi</h1>
+
+<div [ngSwitch]="role">
+  <div *ngSwitchCase="'User'">user</div>
+  <div *ngSwitchCase="'Admin'">admin</div>
+  <div *ngSwitchCase="'Random'">admin</div>
+</div>
 <app-rooms></app-rooms>
