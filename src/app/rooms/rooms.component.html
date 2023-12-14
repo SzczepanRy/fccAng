@@ -2,6 +2,7 @@
 <app-header></app-header>
 <app-header></app-header>
 <app-header></app-header>
+
 <div [hidden]="hideHotels">
   rooms:
   <div [ngStyle]="{ color: rooms.availibleRooms > 5 ? 'green' : 'red' }">
@@ -19,7 +20,7 @@
   <button (click)="addRoom()">add Room</button>
 </div>
 
-<div *ngIf="rooms.availibleRooms > 0">
+<div *ngIf="hideHotels">
   <rooms-list
     (roomSelected)="selectRoom($event)"
     [rooms]="roomList"
