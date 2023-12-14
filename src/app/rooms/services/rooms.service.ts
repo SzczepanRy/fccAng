@@ -40,7 +40,9 @@ export class RoomsService {
       rating: 3.5,
     },
   ];
-  constructor() {}
+  constructor(private roomsService) {
+    console.log('roomservece called');
+  }
   getRooms() {
     return this.roomList;
   }
