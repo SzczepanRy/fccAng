@@ -21,9 +21,9 @@
     <td>{{ room.roomType }}</td>
     <td>{{ room.amenites | lowercase }}</td>
     <td>{{ room.price | currency : "EUR" }}</td>
-    <td><img src=" {room.photos} " alt="zz" /></td>
+    <td><img src="" alt="zz" /></td>
     <td>{{ room.checkInTime }}</td>
-    <td>{{ room.checkOutTime | date : "short" }}</td>
+    <td>{{ room.checkOutTime }}</td>
     <td>{{ room.rating | number : "1.0-1" : "en-us" }}</td>
     <td>
       <button class="btn btn-primary" (click)="selectRoom(room)">select</button>

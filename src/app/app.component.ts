@@ -2,12 +2,13 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Inject,
   OnInit,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
 import { RoomsComponent } from './rooms/rooms.component';
-
+import { LocalStorageToken } from './localstorage.token';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,6 +17,8 @@ import { RoomsComponent } from './rooms/rooms.component';
 export class AppComponent implements AfterViewInit, OnInit {
   title = 'codeCamp';
   role = 'Admin';
+
+  constructor(@Inject(LocalStorageToken) private localStorage: Storage) {}
 
   @ViewChild('user', { read: ViewContainerRef }) vcr!: ViewContainerRef;
 
@@ -28,5 +31,7 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.name.nativeElement.innerText = 'NAME';
+
+    this.localStorage.setItem('name', 'hlton');
   }
 }

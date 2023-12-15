@@ -1,49 +1,46 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { roomListI } from '../rooms';
+import { APP_SERVICE_CONF } from 'src/app/AppConfig/apponfig.service';
+import { AppConfig } from 'src/app/AppConfig/appconfig.interface';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoomsService {
-  roomList: roomListI[] = [
-    {
-      roomNumber: 1,
-      roomType: 'Deluxe Room',
-      amenites: 'air conditioning ',
-      price: 500,
-      photos:
-        'https://www.google.com/imgres?imgurl=https%3A%2F%2Fcf.bstatic.com%2Fxdata%2Fimages%2Fhotel%2Fmax1024x768%2F194702399.jpg%3Fk%3D14e9a332f4f20a67f72f8d5938cd6577f5c932a0653f59ae89d020f119f0d9be%26o%3D%26hp%3D1&tbnid=Dbw5564463BwEM&vet=12ahUKEwiDssa3-YmDAxWi5gIHHd_0A2sQMygCegQIARBQ..i&imgrefurl=https%3A%2F%2Fwww.booking.com%2Fhotel%2Fcy%2Fthe-room.pl.html&docid=o5agkt7Lm2FHrM&w=1024&h=768&q=room&ved=2ahUKEwiDssa3-YmDAxWi5gIHHd_0A2sQMygCegQIARBQ',
-      checkInTime: new Date('11-nov-2023'),
-      checkOutTime: new Date('11-nov-2023'),
-      rating: 3,
-    },
-    {
-      roomNumber: 2,
-      roomType: 'Deluxe Room',
-      amenites: 'air conditioning ',
-      price: 500,
-      photos:
-        'https://www.google.com/imgres?imgurl=https%3A%2F%2Fcf.bstatic.com%2Fxdata%2Fimages%2Fhotel%2Fmax1024x768%2F194702399.jpg%3Fk%3D14e9a332f4f20a67f72f8d5938cd6577f5c932a0653f59ae89d020f119f0d9be%26o%3D%26hp%3D1&tbnid=Dbw5564463BwEM&vet=12ahUKEwiDssa3-YmDAxWi5gIHHd_0A2sQMygCegQIARBQ..i&imgrefurl=https%3A%2F%2Fwww.booking.com%2Fhotel%2Fcy%2Fthe-room.pl.html&docid=o5agkt7Lm2FHrM&w=1024&h=768&q=room&ved=2ahUKEwiDssa3-YmDAxWi5gIHHd_0A2sQMygCegQIARBQ',
-      checkInTime: new Date('11-nov-2023'),
-      checkOutTime: new Date('11-nov-2023'),
-      rating: 4.2,
-    },
-    {
-      roomNumber: 3,
-      roomType: 'Deluxe Room',
-      amenites: 'air conditioning ',
-      price: 500,
-      photos:
-        'https://www.google.com/imgres?imgurl=https%3A%2F%2Fcf.bstatic.com%2Fxdata%2Fimages%2Fhotel%2Fmax1024x768%2F194702399.jpg%3Fk%3D14e9a332f4f20a67f72f8d5938cd6577f5c932a0653f59ae89d020f119f0d9be%26o%3D%26hp%3D1&tbnid=Dbw5564463BwEM&vet=12ahUKEwiDssa3-YmDAxWi5gIHHd_0A2sQMygCegQIARBQ..i&imgrefurl=https%3A%2F%2Fwww.booking.com%2Fhotel%2Fcy%2Fthe-room.pl.html&docid=o5agkt7Lm2FHrM&w=1024&h=768&q=room&ved=2ahUKEwiDssa3-YmDAxWi5gIHHd_0A2sQMygCegQIARBQ',
-      checkInTime: new Date('11-nov-2023'),
-      checkOutTime: new Date('11-nov-2023'),
-      rating: 3.5,
-    },
-  ];
-  constructor(private roomsService) {
+  roomList: roomListI[] = [];
+  constructor(
+    @Inject(APP_SERVICE_CONF) private config: AppConfig,
+    private http: HttpClient
+  ) {
+    console.log(this.config.url);
     console.log('roomservece called');
   }
   getRooms() {
-    return this.roomList;
+    console.log();
+
+    return this.http.get<roomListI[]>('http://localhost:8080/api');
+  }
+  i = 1;
+  addRoom(room: roomListI) {
+    this.i++;
+    return this.http.post<roomListI[]>('http://localhost:8080/api/', {
+      ...room,
+      id: room.roomNumber + this.i,
+    });
+  }
+  editRoom(room: roomListI) {
+    this.i++;
+    return this.http.put<roomListI[]>(
+      'http://localhost:8080/api/' + room.roomNumber,
+      {
+        ...room,
+        rating: this.i,
+      }
+    );
+  }
+
+  deleteRoom(id: number) {
+    return this.http.delete<roomListI[]>('http://localhost:8080/api/' + id);
   }
 }
