@@ -1,7 +1,9 @@
 <!-- <h3>wlecone to {{ hotelName }}</h3> -->
 <app-header></app-header>
-<app-header></app-header>
-<app-header></app-header>
+<!-- <app-header></app-header>
+<app-header></app-header> -->
+
+<!-- {{ rooms$ | async | json }} -->
 
 <div [hidden]="hideHotels">
   rooms:
@@ -13,21 +15,31 @@
 <!-- {{ rooms?.availibleRooms ?? "no rooms" }} -->
 <!-- {{ roomList | json }} -->
 
+<h1>
+  {{ totalBytes }}
+</h1>
+<h1>
+  {{ getError$ | async | json }}
+</h1>
+
 <div *ngIf="selectedRoom">
   {{ selectedRoom | json }}
 </div>
+
+<h1>room count {{ roomsCount$ | async | json }}</h1>
 <div>
   <button (click)="addRoom()">add Room</button>
 </div>
 
-<div *ngIf="hideHotels">
+<div *ngIf="rooms$ | async as rooms">
   <rooms-list
     (roomSelected)="selectRoom($event)"
-    [rooms]="roomList"
+    [rooms]="rooms"
     [title]="title"
   ></rooms-list>
 </div>
 
 <button (click)="add()">add</button>
 <button (click)="toggle()">toggle</button>
-<button (click)="editRoom()">toggle</button>
+<button (click)="editRoom()">eddit</button>
+<button (click)="deleteRoom()">tdelete</button>
