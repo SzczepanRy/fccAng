@@ -17,11 +17,16 @@ export class RequestInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     console.log('intercepted', request);
-    const newRequest = request.clone({
-      headers: new HttpHeaders({
-        token: '71430340734780724398798',
-      }),
-    });
-    return next.handle(newRequest);
+
+    if (request.method == 'POST') {
+      const newRequest = request.clone({
+        headers: new HttpHeaders({
+          token: '71430340734780724398798',
+        }),
+      });
+      return next.handle(newRequest);
+    }
+
+    return next.handle(request);
   }
 }
