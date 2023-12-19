@@ -47,6 +47,7 @@ function initFactory(InitService: InitService) {
     EmailValidatorDirective,
   ],
   imports: [
+    RoomsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -57,7 +58,7 @@ function initFactory(InitService: InitService) {
     MatIconModule,
     MatListModule,
     FormsModule,
-    RoomsModule,
+
     HeaderModule,
   ],
   providers: [
