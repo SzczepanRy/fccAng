@@ -21,7 +21,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { RoomsBookingComponent } from './rooms/rooms-booking/rooms-booking.component';
+
+import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { HoverDirective } from './hover.directive';
+import { EmailValidatorDirective } from './emailvalidator/email-validator.directive';
+import { RoomsModule } from './rooms/rooms.module';
+import { HeaderModule } from './header/header.module';
 
 function initFactory(InitService: InitService) {
   return () => InitService.init();
@@ -30,14 +36,15 @@ function initFactory(InitService: InitService) {
 @NgModule({
   declarations: [
     AppComponent,
-    RoomsComponent,
-    RoomsListComponent,
-    HeaderComponent,
+
     ContainerComponent,
     EmployeeComponent,
     AppNavComponent,
     NotFoundComponent,
-    RoomsBookingComponent,
+
+    LoginComponent,
+    HoverDirective,
+    EmailValidatorDirective,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +56,9 @@ function initFactory(InitService: InitService) {
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    FormsModule,
+    RoomsModule,
+    HeaderModule,
   ],
   providers: [
     {
