@@ -14,6 +14,7 @@ import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
 import { Observable, Subject, Subscription, catchError, map, of } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
+import { ConfigService } from '../services/config.service';
 
 @Component({
   selector: 'app-rooms',
@@ -50,7 +51,10 @@ export class RoomsComponent
   roomsCount$ = this.roomsService.getRooms$.pipe(map((rooms) => rooms.length));
   subscription!: Subscription;
 
-  constructor(private roomsService: RoomsService) {}
+  constructor(
+    private roomsService: RoomsService,
+    private config: ConfigService
+  ) {}
   ngOnInit(): void {
     this.roomsService.getPhotos().subscribe((event) => {
       switch (event.type) {

@@ -47,7 +47,7 @@ function initFactory(InitService: InitService) {
     EmailValidatorDirective,
   ],
   imports: [
-    RoomsModule,
+    // RoomsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
